@@ -1,7 +1,7 @@
 use windows::{
     core::{GUID, PSTR},
     Win32::{
-        Foundation::{BOOLEAN, HANDLE, NTSTATUS, UNICODE_STRING},
+        Foundation::{HANDLE, NTSTATUS, UNICODE_STRING},
         System::{
             Kernel::{LIST_ENTRY, NT_TIB, PROCESSOR_NUMBER, SLIST_HEADER},
             Threading::CRITICAL_SECTION,
@@ -105,9 +105,9 @@ impl std::fmt::Debug for API_SET_VALUE_ENTRY {
 
 #[repr(C)]
 pub struct PEB {
-    pub InheritedAddressSpace: BOOLEAN,
-    pub ReadImageFileExecOptions: BOOLEAN,
-    pub BeingDebugged: BOOLEAN,
+    pub InheritedAddressSpace: bool,
+    pub ReadImageFileExecOptions: bool,
+    pub BeingDebugged: bool,
     pub Anonymous1: PEB_1,
     pub Mutant: HANDLE,
     pub ImageBaseAddress: *mut std::ffi::c_void,
@@ -201,7 +201,7 @@ pub struct PEB {
 
 #[repr(C)]
 pub struct PEB_1 {
-    pub BitField: UnionField<BOOLEAN>,
+    pub BitField: UnionField<bool>,
     pub Anonymous1: UnionField<PEB_1_1>,
     pub union_field: u8,
 }
@@ -237,12 +237,12 @@ impl std::fmt::Debug for PEB_1_1 {
 
 impl PEB_1_1 {
     #[inline]
-    pub fn ImageUsesLargePages(&self) -> BOOLEAN {
+    pub fn ImageUsesLargePages(&self) -> bool {
         unsafe { std::mem::transmute(self._bitfield_1.get(0usize, 1u8) as u8) }
     }
 
     #[inline]
-    pub fn set_ImageUsesLargePages(&mut self, val: BOOLEAN) {
+    pub fn set_ImageUsesLargePages(&mut self, val: bool) {
         unsafe {
             let val: u8 = std::mem::transmute(val);
 
@@ -251,12 +251,12 @@ impl PEB_1_1 {
     }
 
     #[inline]
-    pub fn IsProtectedProcess(&self) -> BOOLEAN {
+    pub fn IsProtectedProcess(&self) -> bool {
         unsafe { std::mem::transmute(self._bitfield_1.get(1usize, 1u8) as u8) }
     }
 
     #[inline]
-    pub fn set_IsProtectedProcess(&mut self, val: BOOLEAN) {
+    pub fn set_IsProtectedProcess(&mut self, val: bool) {
         unsafe {
             let val: u8 = std::mem::transmute(val);
 
@@ -265,12 +265,12 @@ impl PEB_1_1 {
     }
 
     #[inline]
-    pub fn IsImageDynamicallyRelocated(&self) -> BOOLEAN {
+    pub fn IsImageDynamicallyRelocated(&self) -> bool {
         unsafe { std::mem::transmute(self._bitfield_1.get(2usize, 1u8) as u8) }
     }
 
     #[inline]
-    pub fn set_IsImageDynamicallyRelocated(&mut self, val: BOOLEAN) {
+    pub fn set_IsImageDynamicallyRelocated(&mut self, val: bool) {
         unsafe {
             let val: u8 = std::mem::transmute(val);
 
@@ -279,12 +279,12 @@ impl PEB_1_1 {
     }
 
     #[inline]
-    pub fn SkipPatchingUser32Forwarders(&self) -> BOOLEAN {
+    pub fn SkipPatchingUser32Forwarders(&self) -> bool {
         unsafe { std::mem::transmute(self._bitfield_1.get(3usize, 1u8) as u8) }
     }
 
     #[inline]
-    pub fn set_SkipPatchingUser32Forwarders(&mut self, val: BOOLEAN) {
+    pub fn set_SkipPatchingUser32Forwarders(&mut self, val: bool) {
         unsafe {
             let val: u8 = std::mem::transmute(val);
 
@@ -293,12 +293,12 @@ impl PEB_1_1 {
     }
 
     #[inline]
-    pub fn IsPackagedProcess(&self) -> BOOLEAN {
+    pub fn IsPackagedProcess(&self) -> bool {
         unsafe { std::mem::transmute(self._bitfield_1.get(4usize, 1u8) as u8) }
     }
 
     #[inline]
-    pub fn set_IsPackagedProcess(&mut self, val: BOOLEAN) {
+    pub fn set_IsPackagedProcess(&mut self, val: bool) {
         unsafe {
             let val: u8 = std::mem::transmute(val);
 
@@ -307,12 +307,12 @@ impl PEB_1_1 {
     }
 
     #[inline]
-    pub fn IsAppContainer(&self) -> BOOLEAN {
+    pub fn IsAppContainer(&self) -> bool {
         unsafe { std::mem::transmute(self._bitfield_1.get(5usize, 1u8) as u8) }
     }
 
     #[inline]
-    pub fn set_IsAppContainer(&mut self, val: BOOLEAN) {
+    pub fn set_IsAppContainer(&mut self, val: bool) {
         unsafe {
             let val: u8 = std::mem::transmute(val);
 
@@ -321,12 +321,12 @@ impl PEB_1_1 {
     }
 
     #[inline]
-    pub fn IsProtectedProcessLight(&self) -> BOOLEAN {
+    pub fn IsProtectedProcessLight(&self) -> bool {
         unsafe { std::mem::transmute(self._bitfield_1.get(6usize, 1u8) as u8) }
     }
 
     #[inline]
-    pub fn set_IsProtectedProcessLight(&mut self, val: BOOLEAN) {
+    pub fn set_IsProtectedProcessLight(&mut self, val: bool) {
         unsafe {
             let val: u8 = std::mem::transmute(val);
 
@@ -335,12 +335,12 @@ impl PEB_1_1 {
     }
 
     #[inline]
-    pub fn IsLongPathAwareProcess(&self) -> BOOLEAN {
+    pub fn IsLongPathAwareProcess(&self) -> bool {
         unsafe { std::mem::transmute(self._bitfield_1.get(7usize, 1u8) as u8) }
     }
 
     #[inline]
-    pub fn set_IsLongPathAwareProcess(&mut self, val: BOOLEAN) {
+    pub fn set_IsLongPathAwareProcess(&mut self, val: bool) {
         unsafe {
             let val: u8 = std::mem::transmute(val);
 
@@ -350,14 +350,14 @@ impl PEB_1_1 {
 
     #[inline]
     pub fn new_bitfield_1(
-        ImageUsesLargePages: BOOLEAN,
-        IsProtectedProcess: BOOLEAN,
-        IsImageDynamicallyRelocated: BOOLEAN,
-        SkipPatchingUser32Forwarders: BOOLEAN,
-        IsPackagedProcess: BOOLEAN,
-        IsAppContainer: BOOLEAN,
-        IsProtectedProcessLight: BOOLEAN,
-        IsLongPathAwareProcess: BOOLEAN,
+        ImageUsesLargePages: bool,
+        IsProtectedProcess: bool,
+        IsImageDynamicallyRelocated: bool,
+        SkipPatchingUser32Forwarders: bool,
+        IsPackagedProcess: bool,
+        IsAppContainer: bool,
+        IsProtectedProcessLight: bool,
+        IsLongPathAwareProcess: bool,
     ) -> BitfieldUnit<[u8; 1]> {
         let mut bitfield_unit: BitfieldUnit<[u8; 1]> = Default::default();
 
@@ -940,7 +940,7 @@ pub struct TEB {
     pub ReservedForDebuggerInstrumentation: [*mut std::ffi::c_void; 16],
     pub SystemReserved1: [*mut std::ffi::c_void; 30],
     pub PlaceholderCompatibilityMode: i8,
-    pub PlaceholderHydrationAlwaysExplicit: BOOLEAN,
+    pub PlaceholderHydrationAlwaysExplicit: bool,
     pub PlaceholderReserved: [i8; 10],
     pub ProxiedProcessId: u32,
     pub ActivationStack: ACTIVATION_CONTEXT_STACK,
@@ -951,8 +951,8 @@ pub struct TEB {
     pub InstrumentationCallbackPreviousPc: usize,
     pub InstrumentationCallbackPreviousSp: usize,
     pub TxFsContext: u32,
-    pub InstrumentationCallbackDisabled: BOOLEAN,
-    pub UnalignedLoadStoreExceptions: BOOLEAN,
+    pub InstrumentationCallbackDisabled: bool,
+    pub UnalignedLoadStoreExceptions: bool,
     pub GdiTebBatch: GDI_TEB_BATCH,
     pub RealClientId: CLIENT_ID,
     pub GdiCachedProcessHandle: HANDLE,

@@ -1,6 +1,6 @@
 use windows::{
     core::{GUID, PWSTR},
-    Win32::Foundation::{BOOLEAN, HANDLE, NTSTATUS, UNICODE_STRING},
+    Win32::Foundation::{HANDLE, NTSTATUS, UNICODE_STRING},
 };
 
 use crate::bitfield::{BitfieldUnit, UnionField};
@@ -1326,7 +1326,7 @@ impl std::fmt::Debug for BCD_ELEMENT_INTEGER_LIST {
 
 #[repr(C)]
 pub struct BCD_ELEMENT_BOOLEAN {
-    pub Value: BOOLEAN,
+    pub Value: bool,
 }
 
 impl Default for BCD_ELEMENT_BOOLEAN {

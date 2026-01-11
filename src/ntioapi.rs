@@ -7,7 +7,7 @@ use windows::{
         },
     },
     Win32::{
-        Foundation::{BOOLEAN, HANDLE, NTSTATUS, UNICODE_STRING},
+        Foundation::{HANDLE, NTSTATUS, UNICODE_STRING},
         Security::SID,
         Storage::FileSystem::FILE_SEGMENT_ELEMENT,
         System::IO::{IO_STATUS_BLOCK, PIO_APC_ROUTINE},
@@ -497,11 +497,11 @@ extern "system" {
         IoStatusBlock: *mut IO_STATUS_BLOCK,
         Buffer: *mut std::ffi::c_void,
         Length: u32,
-        ReturnSingleEntry: BOOLEAN,
+        ReturnSingleEntry: bool,
         EaList: *mut std::ffi::c_void,
         EaListLength: u32,
         EaIndex: *mut u32,
-        RestartScan: BOOLEAN,
+        RestartScan: bool,
     ) -> NTSTATUS;
 }
 
@@ -586,7 +586,7 @@ extern "system" {
         Buffer: *mut std::ffi::c_void,
         Length: u32,
         CompletionFilter: u32,
-        WatchTree: BOOLEAN,
+        WatchTree: bool,
     ) -> NTSTATUS;
 }
 
@@ -601,7 +601,7 @@ extern "system" {
         Buffer: *mut std::ffi::c_void,
         Length: u32,
         CompletionFilter: u32,
-        WatchTree: BOOLEAN,
+        WatchTree: bool,
         DirectoryNotifyInformationClass: DIRECTORY_NOTIFY_INFORMATION_CLASS,
     ) -> NTSTATUS;
 }
@@ -711,7 +711,7 @@ extern "system" {
         Count: u32,
         NumEntriesRemoved: *mut u32,
         Timeout: *mut i64,
-        Alertable: BOOLEAN,
+        Alertable: bool,
     ) -> NTSTATUS;
 }
 
@@ -734,7 +734,7 @@ extern "system" {
         ApcContext: *mut std::ffi::c_void,
         IoStatus: NTSTATUS,
         IoStatusInformation: usize,
-        AlreadySignaled: *mut BOOLEAN,
+        AlreadySignaled: *mut bool,
     ) -> NTSTATUS;
 }
 
@@ -742,7 +742,7 @@ extern "system" {
 extern "system" {
     pub fn NtCancelWaitCompletionPacket(
         WaitCompletionPacketHandle: HANDLE,
-        RemoveSignaledPacket: BOOLEAN,
+        RemoveSignaledPacket: bool,
     ) -> NTSTATUS;
 }
 
@@ -880,7 +880,7 @@ impl std::fmt::Debug for MOUNTMGR_DRIVE_LETTER_TARGET {
 
 #[repr(C)]
 pub struct MOUNTMGR_DRIVE_LETTER_INFORMATION {
-    pub DriveLetterWasAssigned: BOOLEAN,
+    pub DriveLetterWasAssigned: bool,
     pub CurrentDriveLetter: u8,
 }
 
