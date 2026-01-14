@@ -1020,8 +1020,8 @@ pub union BCD_PARTITION_SIGNATURE {
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub union BCD_PARTITION_SIGNATURE_MBR {
-    pub DiskSignature: UnionField<u64>,
-    pub PartitionOffset: UnionField<u64>,
+    pub DiskSignature: u32,
+    pub PartitionOffset: u64,
 }
 
 impl Default for BCD_PARTITION_SIGNATURE_MBR {
@@ -1039,8 +1039,8 @@ impl std::fmt::Debug for BCD_PARTITION_SIGNATURE_MBR {
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub union BCD_PARTITION_SIGNATURE_GPT {
-    pub DiskSignature: UnionField<GUID>,
-    pub PartitionSignature: UnionField<GUID>,
+    pub DiskSignature: GUID,
+    pub PartitionSignature: GUID,
 }
 
 impl Default for BCD_PARTITION_SIGNATURE_GPT {
@@ -1108,8 +1108,8 @@ pub struct BCD_ELEMENT_DEVICE_DATA {
 
 #[repr(C)]
 pub union BCD_ELEMENT_DEVICE_FILE {
-    pub ParentOffset: UnionField<u32>,
-    pub Path: UnionField<[u16; 0]>,
+    pub ParentOffset: u32,
+    pub Path: [u16; 0],
 }
 
 impl Default for BCD_ELEMENT_DEVICE_FILE {
@@ -1126,7 +1126,7 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE_FILE {
 
 #[repr(C)]
 pub union BCD_ELEMENT_DEVICE_PARTITION {
-    pub Path: UnionField<[u16; 0]>,
+    pub Path: [u16; 0],
 }
 
 impl Default for BCD_ELEMENT_DEVICE_PARTITION {
@@ -1143,10 +1143,10 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE_PARTITION {
 
 #[repr(C)]
 pub union BCD_ELEMENT_DEVICE_LOCATE {
-    pub Type: UnionField<u32>,
-    pub ParentOffset: UnionField<u32>,
-    pub ElementType: UnionField<u32>,
-    pub Path: UnionField<[u16; 0]>,
+    pub Type: u32,
+    pub ParentOffset: u32,
+    pub ElementType: u32,
+    pub Path: [u16; 0],
 }
 
 impl Default for BCD_ELEMENT_DEVICE_LOCATE {
@@ -1163,7 +1163,7 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE_LOCATE {
 
 #[repr(C)]
 pub union BCD_ELEMENT_DEVICE_VMBUS {
-    pub InterfaceInstance: UnionField<GUID>,
+    pub InterfaceInstance: GUID,
 }
 
 impl Default for BCD_ELEMENT_DEVICE_VMBUS {
@@ -1180,7 +1180,7 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE_VMBUS {
 
 #[repr(C)]
 pub union BCD_ELEMENT_DEVICE_UNKNOWN {
-    pub Data: UnionField<[u32; 0]>,
+    pub Data: [u32; 0],
 }
 
 impl Default for BCD_ELEMENT_DEVICE_UNKNOWN {
