@@ -1008,66 +1008,68 @@ extern "system" {
 pub struct BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION {
     pub PartitionStyle: u32,
     pub Reserved: u32,
-    pub Anonymous1: BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1,
+    pub signature: BCD_PARTITION_SIGNATURE,
 }
 
 #[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1 {
-    pub Mbr: BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_1,
-    pub Gpt: BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_2,
+pub union BCD_PARTITION_SIGNATURE {
+    pub Mbr: BCD_PARTITION_SIGNATURE_MBR,
+    pub Gpt: BCD_PARTITION_SIGNATURE_GPT,
 }
 
 #[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_1 {
+#[derive(Clone, Copy)]
+pub union BCD_PARTITION_SIGNATURE_MBR {
     pub DiskSignature: UnionField<u64>,
     pub PartitionOffset: UnionField<u64>,
-    pub union_field: u64,
 }
 
-impl Default for BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_1 {
+impl Default for BCD_PARTITION_SIGNATURE_MBR {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_1 {
+impl std::fmt::Debug for BCD_PARTITION_SIGNATURE_MBR {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_1 {{ union }}")
+        write!(f, "BCD_PARTITION_SIGNATURE_MBR {{ union }}")
     }
 }
 
 #[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_2 {
+#[derive(Clone, Copy)]
+pub union BCD_PARTITION_SIGNATURE_GPT {
     pub DiskSignature: UnionField<GUID>,
     pub PartitionSignature: UnionField<GUID>,
-    pub union_field: [u32; 4],
 }
 
-impl Default for BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_2 {
+impl Default for BCD_PARTITION_SIGNATURE_GPT {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_2 {
+impl std::fmt::Debug for BCD_PARTITION_SIGNATURE_GPT {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_2 {{ union }}")
+        write!(f, "BCD_PARTITION_SIGNATURE_GPT {{ union }}")
     }
 }
 
-impl Default for BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1 {
+impl Default for BCD_PARTITION_SIGNATURE {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1 {
+impl std::fmt::Debug for BCD_PARTITION_SIGNATURE {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1 {{ Mbr: {:?}, Gpt: {:?} }}",
-            self.Mbr, self.Gpt
-        )
+        unsafe {
+            write!(
+                f,
+                "BCD_PARTITION_SIGNATURE {{ Mbr: {:?}, Gpt: {:?} }}",
+                self.Mbr, self.Gpt
+            )
+        }
     }
 }
 
@@ -1081,8 +1083,8 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION {{ Anonymous1: {:?} }}",
-            self.Anonymous1
+            "BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION {{ signature: {:?} }}",
+            self.signature
         )
     }
 }
@@ -1091,124 +1093,119 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION {
 pub struct BCD_ELEMENT_DEVICE {
     pub DeviceType: u32,
     pub AdditionalOptions: GUID,
-    pub Anonymous1: BCD_ELEMENT_DEVICE_1,
+    pub Data: BCD_ELEMENT_DEVICE_DATA,
 }
 
 #[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_1 {
-    pub File: BCD_ELEMENT_DEVICE_1_1,
-    pub Partition: BCD_ELEMENT_DEVICE_1_2,
-    pub Locate: BCD_ELEMENT_DEVICE_1_3,
-    pub Vmbus: BCD_ELEMENT_DEVICE_1_4,
-    pub Unknown: BCD_ELEMENT_DEVICE_1_5,
+pub struct BCD_ELEMENT_DEVICE_DATA {
+    pub File: BCD_ELEMENT_DEVICE_FILE,
+    pub Partition: BCD_ELEMENT_DEVICE_PARTITION,
+    pub Locate: BCD_ELEMENT_DEVICE_LOCATE,
+    pub Vmbus: BCD_ELEMENT_DEVICE_VMBUS,
+    pub Unknown: BCD_ELEMENT_DEVICE_UNKNOWN,
     pub QualifiedPartition: BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION,
 }
 
 #[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_1_1 {
+pub union BCD_ELEMENT_DEVICE_FILE {
     pub ParentOffset: UnionField<u32>,
-    pub Path: UnionField<[u16; 1]>,
-    pub union_field: u32,
+    pub Path: UnionField<[u16; 0]>,
 }
 
-impl Default for BCD_ELEMENT_DEVICE_1_1 {
+impl Default for BCD_ELEMENT_DEVICE_FILE {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_1_1 {
+impl std::fmt::Debug for BCD_ELEMENT_DEVICE_FILE {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "BCD_ELEMENT_DEVICE_1_1 {{ union }}")
+        write!(f, "BCD_ELEMENT_DEVICE_FILE {{ union }}")
     }
 }
 
 #[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_1_2 {
-    pub Path: UnionField<[u16; 1]>,
-    pub union_field: u16,
+pub union BCD_ELEMENT_DEVICE_PARTITION {
+    pub Path: UnionField<[u16; 0]>,
 }
 
-impl Default for BCD_ELEMENT_DEVICE_1_2 {
+impl Default for BCD_ELEMENT_DEVICE_PARTITION {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_1_2 {
+impl std::fmt::Debug for BCD_ELEMENT_DEVICE_PARTITION {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "BCD_ELEMENT_DEVICE_1_2 {{ union }}")
+        write!(f, "BCD_ELEMENT_DEVICE_PARTITION {{ union }}")
     }
 }
 
 #[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_1_3 {
+pub union BCD_ELEMENT_DEVICE_LOCATE {
     pub Type: UnionField<u32>,
     pub ParentOffset: UnionField<u32>,
     pub ElementType: UnionField<u32>,
-    pub Path: UnionField<[u16; 1]>,
-    pub union_field: u32,
+    pub Path: UnionField<[u16; 0]>,
 }
 
-impl Default for BCD_ELEMENT_DEVICE_1_3 {
+impl Default for BCD_ELEMENT_DEVICE_LOCATE {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_1_3 {
+impl std::fmt::Debug for BCD_ELEMENT_DEVICE_LOCATE {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "BCD_ELEMENT_DEVICE_1_3 {{ union }}")
+        write!(f, "BCD_ELEMENT_DEVICE_LOCATE {{ union }}")
     }
 }
 
 #[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_1_4 {
+pub union BCD_ELEMENT_DEVICE_VMBUS {
     pub InterfaceInstance: UnionField<GUID>,
-    pub union_field: [u32; 4],
 }
 
-impl Default for BCD_ELEMENT_DEVICE_1_4 {
+impl Default for BCD_ELEMENT_DEVICE_VMBUS {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_1_4 {
+impl std::fmt::Debug for BCD_ELEMENT_DEVICE_VMBUS {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "BCD_ELEMENT_DEVICE_1_4 {{ union }}")
+        write!(f, "BCD_ELEMENT_DEVICE_VMBUS {{ union }}")
     }
 }
 
 #[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_1_5 {
-    pub Data: UnionField<[u32; 1]>,
-    pub union_field: u32,
+pub union BCD_ELEMENT_DEVICE_UNKNOWN {
+    pub Data: UnionField<[u32; 0]>,
 }
 
-impl Default for BCD_ELEMENT_DEVICE_1_5 {
+impl Default for BCD_ELEMENT_DEVICE_UNKNOWN {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_1_5 {
+impl std::fmt::Debug for BCD_ELEMENT_DEVICE_UNKNOWN {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "BCD_ELEMENT_DEVICE_1_5 {{ union }}")
+        write!(f, "BCD_ELEMENT_DEVICE_UNKNOWN {{ union }}")
     }
 }
 
-impl Default for BCD_ELEMENT_DEVICE_1 {
+impl Default for BCD_ELEMENT_DEVICE_DATA {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_1 {
+impl std::fmt::Debug for BCD_ELEMENT_DEVICE_DATA {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "BCD_ELEMENT_DEVICE_1 {{ File: {:?}, Partition: {:?}, Locate: {:?}, Vmbus: {:?}, Unknown: {:?}, QualifiedPartition: {:?} }}",
+            "BCD_ELEMENT_DEVICE_DATA {{ File: {:?}, Partition: {:?}, Locate: {:?}, Vmbus: {:?}, Unknown: {:?}, QualifiedPartition: {:?} }}",
             self.File,
             self.Partition,
             self.Locate,
@@ -1230,7 +1227,7 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE {
         write!(
             f,
             "BCD_ELEMENT_DEVICE {{ Anonymous1: {:?} }}",
-            self.Anonymous1
+            self.Data
         )
     }
 }
