@@ -1093,11 +1093,7 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION {
 pub struct BCD_ELEMENT_DEVICE {
     pub DeviceType: u32,
     pub AdditionalOptions: GUID,
-    pub Data: BCD_ELEMENT_DEVICE_DATA,
-}
-
-#[repr(C)]
-pub struct BCD_ELEMENT_DEVICE_DATA {
+    // Data
     pub File: BCD_ELEMENT_DEVICE_FILE,
     pub Partition: BCD_ELEMENT_DEVICE_PARTITION,
     pub Locate: BCD_ELEMENT_DEVICE_LOCATE,
@@ -1195,26 +1191,26 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE_UNKNOWN {
     }
 }
 
-impl Default for BCD_ELEMENT_DEVICE_DATA {
-    fn default() -> Self {
-        unsafe { std::mem::zeroed() }
-    }
-}
+// impl Default for BCD_ELEMENT_DEVICE_DATA {
+//     fn default() -> Self {
+//         unsafe { std::mem::zeroed() }
+//     }
+// }
 
-impl std::fmt::Debug for BCD_ELEMENT_DEVICE_DATA {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "BCD_ELEMENT_DEVICE_DATA {{ File: {:?}, Partition: {:?}, Locate: {:?}, Vmbus: {:?}, Unknown: {:?}, QualifiedPartition: {:?} }}",
-            self.File,
-            self.Partition,
-            self.Locate,
-            self.Vmbus,
-            self.Unknown,
-            self.QualifiedPartition
-        )
-    }
-}
+// impl std::fmt::Debug for BCD_ELEMENT_DEVICE_DATA {
+//     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+//         write!(
+//             f,
+//             "BCD_ELEMENT_DEVICE_DATA {{ File: {:?}, Partition: {:?}, Locate: {:?}, Vmbus: {:?}, Unknown: {:?}, QualifiedPartition: {:?} }}",
+//             self.File,
+//             self.Partition,
+//             self.Locate,
+//             self.Vmbus,
+//             self.Unknown,
+//             self.QualifiedPartition
+//         )
+//     }
+// }
 
 impl Default for BCD_ELEMENT_DEVICE {
     fn default() -> Self {
@@ -1226,8 +1222,8 @@ impl std::fmt::Debug for BCD_ELEMENT_DEVICE {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "BCD_ELEMENT_DEVICE {{ Anonymous1: {:?} }}",
-            self.Data
+            "BCD_ELEMENT_DEVICE {{ Data: {:?} }}",
+            self.File,
         )
     }
 }
