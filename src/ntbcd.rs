@@ -1019,7 +1019,7 @@ pub struct BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1 {
 
 #[repr(C)]
 pub struct BCD_ELEMENT_DEVICE_QUALIFIED_PARTITION_1_1 {
-    pub DiskSignature: UnionField<u32>,
+    pub DiskSignature: UnionField<u64>,
     pub PartitionOffset: UnionField<u64>,
     pub union_field: u64,
 }
