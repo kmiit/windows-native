@@ -227,30 +227,22 @@ impl std::fmt::Debug for FILE_INTERNAL_INFORMATION_1_1 {
 impl FILE_INTERNAL_INFORMATION_1_1 {
     #[inline]
     pub fn MftRecordIndex(&self) -> i64 {
-        unsafe { std::mem::transmute(self._bitfield_1.get(0usize, 48u8)) }
+        u64::cast_signed(self._bitfield_1.get(0usize, 48u8))
     }
 
     #[inline]
     pub fn set_MftRecordIndex(&mut self, val: i64) {
-        unsafe {
-            let val: u64 = std::mem::transmute(val);
-
-            self._bitfield_1.set(0usize, 48u8, val as u64)
-        }
+        self._bitfield_1.set(0usize, 48u8, val as u64)
     }
 
     #[inline]
     pub fn SequenceNumber(&self) -> i64 {
-        unsafe { std::mem::transmute(self._bitfield_1.get(48usize, 16u8)) }
+        u64::cast_signed(self._bitfield_1.get(48usize, 16u8))
     }
 
     #[inline]
     pub fn set_SequenceNumber(&mut self, val: i64) {
-        unsafe {
-            let val: u64 = std::mem::transmute(val);
-
-            self._bitfield_1.set(48usize, 16u8, val as u64)
-        }
+        self._bitfield_1.set(48usize, 16u8, val as u64)
     }
 
     #[inline]
@@ -258,14 +250,10 @@ impl FILE_INTERNAL_INFORMATION_1_1 {
         let mut bitfield_unit: BitfieldUnit<[u8; 8]> = Default::default();
 
         bitfield_unit.set(0usize, 48u8, {
-            let MftRecordIndex: u64 = unsafe { std::mem::transmute(MftRecordIndex) };
-
             MftRecordIndex as u64
         });
 
         bitfield_unit.set(48usize, 16u8, {
-            let SequenceNumber: u64 = unsafe { std::mem::transmute(SequenceNumber) };
-
             SequenceNumber as u64
         });
 

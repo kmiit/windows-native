@@ -4208,8 +4208,6 @@ impl SYSTEM_BIGPOOL_ENTRY_1 {
     #[inline]
     pub fn set_NonPaged(&mut self, val: usize) {
         unsafe {
-            let val: u64 = std::mem::transmute(val);
-
             self._bitfield_1.as_mut().set(0usize, 1u8, val as u64)
         }
     }
@@ -4221,7 +4219,7 @@ impl SYSTEM_BIGPOOL_ENTRY_1 {
         bitfield_unit.set(0usize, 1u8, {
             let NonPaged: u64 = unsafe { std::mem::transmute(NonPaged) };
 
-            NonPaged as u64
+            NonPaged
         });
 
         bitfield_unit
@@ -4415,7 +4413,7 @@ pub enum WATCHDOG_HANDLER_ACTION {
     WdActionQueryState = 7,
 }
 
-pub type PSYSTEM_WATCHDOG_HANDLER = std::option::Option<
+pub type PSYSTEM_WATCHDOG_HANDLER = Option<
     unsafe extern "system" fn(
         Action: WATCHDOG_HANDLER_ACTION,
         Context: *mut std::ffi::c_void,
@@ -8083,8 +8081,8 @@ impl std::fmt::Debug for MEMORY_COMBINE_INFORMATION_EX2 {
 #[repr(C)]
 pub struct SYSTEM_ENTROPY_TIMING_INFORMATION {
     pub EntropyRoutine:
-        std::option::Option<unsafe extern "system" fn(arg1: *mut std::ffi::c_void, arg2: u32)>,
-    pub InitializationRoutine: std::option::Option<
+        Option<unsafe extern "system" fn(arg1: *mut std::ffi::c_void, arg2: u32)>,
+    pub InitializationRoutine: Option<
         unsafe extern "system" fn(
             arg1: *mut std::ffi::c_void,
             arg2: u32,
@@ -9334,11 +9332,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_SecureKernelRunning(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(0usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(0usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -9348,11 +9342,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_HvciEnabled(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(1usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(1usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -9362,11 +9352,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_HvciStrictMode(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(2usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(2usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -9376,11 +9362,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_DebugEnabled(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(3usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(3usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -9390,11 +9372,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_FirmwarePageProtection(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(4usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(4usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -9404,11 +9382,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_EncryptionKeyAvailable(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(5usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(5usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -9418,11 +9392,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_SpareFlags(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(6usize, 2u8, val as u64)
-        }
+        self._bitfield_1.set(6usize, 2u8, val as u64)
     }
 
     #[inline]
@@ -9432,11 +9402,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_TrustletRunning(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(8usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(8usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -9446,11 +9412,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_HvciDisableAllowed(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(9usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(9usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -9460,11 +9422,7 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
 
     #[inline]
     pub fn set_SpareFlags2(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(10usize, 6u8, val as u64)
-        }
+        self._bitfield_1.set(10usize, 6u8, val as u64)
     }
 
     #[inline]
@@ -9483,62 +9441,42 @@ impl SYSTEM_ISOLATED_USER_MODE_INFORMATION {
         let mut bitfield_unit: BitfieldUnit<[u8; 2]> = Default::default();
 
         bitfield_unit.set(0usize, 1u8, {
-            let SecureKernelRunning: u8 = unsafe { std::mem::transmute(SecureKernelRunning) };
-
             SecureKernelRunning as u64
         });
 
         bitfield_unit.set(1usize, 1u8, {
-            let HvciEnabled: u8 = unsafe { std::mem::transmute(HvciEnabled) };
-
             HvciEnabled as u64
         });
 
         bitfield_unit.set(2usize, 1u8, {
-            let HvciStrictMode: u8 = unsafe { std::mem::transmute(HvciStrictMode) };
-
             HvciStrictMode as u64
         });
 
         bitfield_unit.set(3usize, 1u8, {
-            let DebugEnabled: u8 = unsafe { std::mem::transmute(DebugEnabled) };
-
             DebugEnabled as u64
         });
 
         bitfield_unit.set(4usize, 1u8, {
-            let FirmwarePageProtection: u8 = unsafe { std::mem::transmute(FirmwarePageProtection) };
-
             FirmwarePageProtection as u64
         });
 
         bitfield_unit.set(5usize, 1u8, {
-            let EncryptionKeyAvailable: u8 = unsafe { std::mem::transmute(EncryptionKeyAvailable) };
-
             EncryptionKeyAvailable as u64
         });
 
         bitfield_unit.set(6usize, 2u8, {
-            let SpareFlags: u8 = unsafe { std::mem::transmute(SpareFlags) };
-
             SpareFlags as u64
         });
 
         bitfield_unit.set(8usize, 1u8, {
-            let TrustletRunning: u8 = unsafe { std::mem::transmute(TrustletRunning) };
-
             TrustletRunning as u64
         });
 
         bitfield_unit.set(9usize, 1u8, {
-            let HvciDisableAllowed: u8 = unsafe { std::mem::transmute(HvciDisableAllowed) };
-
             HvciDisableAllowed as u64
         });
 
         bitfield_unit.set(10usize, 6u8, {
-            let SpareFlags2: u8 = unsafe { std::mem::transmute(SpareFlags2) };
-
             SpareFlags2 as u64
         });
 

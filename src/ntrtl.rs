@@ -1347,7 +1347,7 @@ extern "system" {
 }
 
 pub type PRTLP_UNHANDLED_EXCEPTION_FILTER =
-    std::option::Option<unsafe extern "system" fn(ExceptionInfo: *mut EXCEPTION_POINTERS) -> u32>;
+    Option<unsafe extern "system" fn(ExceptionInfo: *mut EXCEPTION_POINTERS) -> u32>;
 
 #[link(name = "ntdll.dll", kind = "raw-dylib", modifiers = "+verbatim")]
 extern "system" {
@@ -2423,7 +2423,7 @@ extern "system" {
     pub fn RtlGetProcessHeaps(NumberOfHeaps: u32, ProcessHeaps: *mut *mut std::ffi::c_void) -> u32;
 }
 
-pub type PRTL_ENUM_HEAPS_ROUTINE = std::option::Option<
+pub type PRTL_ENUM_HEAPS_ROUTINE = Option<
     unsafe extern "system" fn(arg1: *mut std::ffi::c_void, arg2: *mut std::ffi::c_void) -> NTSTATUS,
 >;
 
@@ -2855,7 +2855,7 @@ impl std::fmt::Debug for HEAP_INFORMATION_ITEM {
     }
 }
 
-pub type PRTL_HEAP_EXTENDED_ENUMERATION_ROUTINE = std::option::Option<
+pub type PRTL_HEAP_EXTENDED_ENUMERATION_ROUTINE = Option<
     unsafe extern "system" fn(
         arg1: *mut HEAP_INFORMATION_ITEM,
         arg2: *mut std::ffi::c_void,
@@ -2907,7 +2907,7 @@ impl std::fmt::Debug for HEAP_EXTENDED_INFORMATION {
     }
 }
 
-pub type RTL_HEAP_STACK_WRITE_ROUTINE = std::option::Option<
+pub type RTL_HEAP_STACK_WRITE_ROUTINE = Option<
     unsafe extern "system" fn(
         Information: *mut std::ffi::c_void,
         Size: u32,
@@ -3040,7 +3040,7 @@ impl std::fmt::Debug for RTL_HEAP_STACK_CONTROL {
     }
 }
 
-pub type PRTL_HEAP_DEBUGGING_INTERCEPTOR_ROUTINE = std::option::Option<
+pub type PRTL_HEAP_DEBUGGING_INTERCEPTOR_ROUTINE = Option<
     unsafe extern "system" fn(
         HeapHandle: *mut std::ffi::c_void,
         Action: u32,
@@ -3049,7 +3049,7 @@ pub type PRTL_HEAP_DEBUGGING_INTERCEPTOR_ROUTINE = std::option::Option<
     ) -> NTSTATUS,
 >;
 
-pub type PRTL_HEAP_LEAK_ENUMERATION_ROUTINE = std::option::Option<
+pub type PRTL_HEAP_LEAK_ENUMERATION_ROUTINE = Option<
     unsafe extern "system" fn(
         Reserved: i32,
         HeapHandle: *mut std::ffi::c_void,
@@ -4635,7 +4635,7 @@ extern "system" {
     ) -> NTSTATUS;
 }
 
-pub type PRTL_START_POOL_THREAD = std::option::Option<
+pub type PRTL_START_POOL_THREAD = Option<
     unsafe extern "system" fn(
         arg1: LPTHREAD_START_ROUTINE,
         arg2: *mut std::ffi::c_void,
@@ -4644,7 +4644,7 @@ pub type PRTL_START_POOL_THREAD = std::option::Option<
 >;
 
 pub type PRTL_EXIT_POOL_THREAD =
-    std::option::Option<unsafe extern "system" fn(arg1: NTSTATUS) -> NTSTATUS>;
+    Option<unsafe extern "system" fn(arg1: NTSTATUS) -> NTSTATUS>;
 
 #[link(name = "ntdll.dll", kind = "raw-dylib", modifiers = "+verbatim")]
 extern "system" {
@@ -6000,11 +6000,7 @@ impl RTL_BSD_DATA_POWER_TRANSITION_1 {
 
     #[inline]
     pub fn set_SystemRunning(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(0usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(0usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -6014,11 +6010,7 @@ impl RTL_BSD_DATA_POWER_TRANSITION_1 {
 
     #[inline]
     pub fn set_ConnectedStandbyInProgress(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(1usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(1usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -6028,11 +6020,7 @@ impl RTL_BSD_DATA_POWER_TRANSITION_1 {
 
     #[inline]
     pub fn set_UserShutdownInProgress(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(2usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(2usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -6042,11 +6030,7 @@ impl RTL_BSD_DATA_POWER_TRANSITION_1 {
 
     #[inline]
     pub fn set_SystemShutdownInProgress(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(3usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(3usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -6056,11 +6040,7 @@ impl RTL_BSD_DATA_POWER_TRANSITION_1 {
 
     #[inline]
     pub fn set_SleepInProgress(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(4usize, 4u8, val as u64)
-        }
+        self._bitfield_1.set(4usize, 4u8, val as u64)
     }
 
     #[inline]
@@ -6074,34 +6054,22 @@ impl RTL_BSD_DATA_POWER_TRANSITION_1 {
         let mut bitfield_unit: BitfieldUnit<[u8; 1]> = Default::default();
 
         bitfield_unit.set(0usize, 1u8, {
-            let SystemRunning: u8 = unsafe { std::mem::transmute(SystemRunning) };
-
             SystemRunning as u64
         });
 
         bitfield_unit.set(1usize, 1u8, {
-            let ConnectedStandbyInProgress: u8 =
-                unsafe { std::mem::transmute(ConnectedStandbyInProgress) };
-
             ConnectedStandbyInProgress as u64
         });
 
         bitfield_unit.set(2usize, 1u8, {
-            let UserShutdownInProgress: u8 = unsafe { std::mem::transmute(UserShutdownInProgress) };
-
             UserShutdownInProgress as u64
         });
 
         bitfield_unit.set(3usize, 1u8, {
-            let SystemShutdownInProgress: u8 =
-                unsafe { std::mem::transmute(SystemShutdownInProgress) };
-
             SystemShutdownInProgress as u64
         });
 
         bitfield_unit.set(4usize, 4u8, {
-            let SleepInProgress: u8 = unsafe { std::mem::transmute(SleepInProgress) };
-
             SleepInProgress as u64
         });
 
@@ -6326,7 +6294,7 @@ extern "system" {
     pub fn RtlSetPortableOperatingSystem(IsPortable: bool) -> NTSTATUS;
 }
 
-pub type PRTL_SECURE_MEMORY_CACHE_CALLBACK = std::option::Option<
+pub type PRTL_SECURE_MEMORY_CACHE_CALLBACK = Option<
     unsafe extern "system" fn(arg1: *mut std::ffi::c_void, arg2: usize) -> NTSTATUS,
 >;
 
@@ -6600,7 +6568,7 @@ extern "system" {
 }
 
 pub type PRTL_FEATURE_CONFIGURATION_CHANGE_NOTIFICATION =
-    std::option::Option<unsafe extern "system" fn(arg1: *mut std::ffi::c_void)>;
+    Option<unsafe extern "system" fn(arg1: *mut std::ffi::c_void)>;
 
 #[link(name = "ntdll.dll", kind = "raw-dylib", modifiers = "+verbatim")]
 extern "system" {
@@ -6640,7 +6608,7 @@ extern "system" {
     pub fn RtlEqualWnfChangeStamps(ChangeStamp1: u32, ChangeStamp2: u32) -> bool;
 }
 
-pub type PWNF_USER_CALLBACK = std::option::Option<
+pub type PWNF_USER_CALLBACK = Option<
     unsafe extern "system" fn(
         arg1: WNF_STATE_NAME,
         arg2: u32,

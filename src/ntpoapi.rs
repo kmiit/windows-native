@@ -443,7 +443,7 @@ impl std::fmt::Debug for PROCESSOR_IDLE_TIMES {
     }
 }
 
-pub type PROCESSOR_IDLE_HANDLER = std::option::Option<
+pub type PROCESSOR_IDLE_HANDLER = Option<
     unsafe extern "system" fn(Context: usize, IdleTimes: *mut PROCESSOR_IDLE_TIMES) -> NTSTATUS,
 >;
 
@@ -871,11 +871,11 @@ pub enum POWER_STATE_HANDLER_TYPE {
     PowerStateMaximum = 7,
 }
 
-pub type PENTER_STATE_SYSTEM_HANDLER = std::option::Option<
+pub type PENTER_STATE_SYSTEM_HANDLER = Option<
     unsafe extern "system" fn(SystemContext: *mut std::ffi::c_void) -> NTSTATUS,
 >;
 
-pub type PENTER_STATE_HANDLER = std::option::Option<
+pub type PENTER_STATE_HANDLER = Option<
     unsafe extern "system" fn(
         Context: *mut std::ffi::c_void,
         SystemHandler: PENTER_STATE_SYSTEM_HANDLER,
@@ -910,7 +910,7 @@ impl std::fmt::Debug for POWER_STATE_HANDLER {
     }
 }
 
-pub type PENTER_STATE_NOTIFY_HANDLER = std::option::Option<
+pub type PENTER_STATE_NOTIFY_HANDLER = Option<
     unsafe extern "system" fn(
         State: POWER_STATE_HANDLER_TYPE,
         Context: *mut std::ffi::c_void,
@@ -1106,8 +1106,6 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_1 {
     #[inline]
     pub fn set_Storage(&mut self, val: bool) {
         unsafe {
-            let val: u8 = std::mem::transmute(val);
-
             self._bitfield_1.as_mut().set(0usize, 1u8, val as u64)
         }
     }
@@ -1120,8 +1118,6 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_1 {
     #[inline]
     pub fn set_WiFi(&mut self, val: bool) {
         unsafe {
-            let val: u8 = std::mem::transmute(val);
-
             self._bitfield_1.as_mut().set(1usize, 1u8, val as u64)
         }
     }
@@ -1134,8 +1130,6 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_1 {
     #[inline]
     pub fn set_Mbn(&mut self, val: bool) {
         unsafe {
-            let val: u8 = std::mem::transmute(val);
-
             self._bitfield_1.as_mut().set(2usize, 1u8, val as u64)
         }
     }
@@ -1148,8 +1142,6 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_1 {
     #[inline]
     pub fn set_Ethernet(&mut self, val: bool) {
         unsafe {
-            let val: u8 = std::mem::transmute(val);
-
             self._bitfield_1.as_mut().set(3usize, 1u8, val as u64)
         }
     }
@@ -1162,8 +1154,6 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_1 {
     #[inline]
     pub fn set_Reserved(&mut self, val: bool) {
         unsafe {
-            let val: u8 = std::mem::transmute(val);
-
             self._bitfield_1.as_mut().set(4usize, 4u8, val as u64)
         }
     }
@@ -1179,32 +1169,22 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_1 {
         let mut bitfield_unit: BitfieldUnit<[u8; 1]> = Default::default();
 
         bitfield_unit.set(0usize, 1u8, {
-            let Storage: u8 = unsafe { std::mem::transmute(Storage) };
-
             Storage as u64
         });
 
         bitfield_unit.set(1usize, 1u8, {
-            let WiFi: u8 = unsafe { std::mem::transmute(WiFi) };
-
             WiFi as u64
         });
 
         bitfield_unit.set(2usize, 1u8, {
-            let Mbn: u8 = unsafe { std::mem::transmute(Mbn) };
-
             Mbn as u64
         });
 
         bitfield_unit.set(3usize, 1u8, {
-            let Ethernet: u8 = unsafe { std::mem::transmute(Ethernet) };
-
             Ethernet as u64
         });
 
         bitfield_unit.set(4usize, 4u8, {
-            let Reserved: u8 = unsafe { std::mem::transmute(Reserved) };
-
             Reserved as u64
         });
 
@@ -1241,8 +1221,6 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_2 {
     #[inline]
     pub fn set_DisconnectInStandby(&mut self, val: bool) {
         unsafe {
-            let val: u8 = std::mem::transmute(val);
-
             self._bitfield_1.as_mut().set(0usize, 1u8, val as u64)
         }
     }
@@ -1255,8 +1233,6 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_2 {
     #[inline]
     pub fn set_EnforceDs(&mut self, val: bool) {
         unsafe {
-            let val: u8 = std::mem::transmute(val);
-
             self._bitfield_1.as_mut().set(1usize, 1u8, val as u64)
         }
     }
@@ -1269,8 +1245,6 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_2 {
     #[inline]
     pub fn set_Reserved(&mut self, val: bool) {
         unsafe {
-            let val: u8 = std::mem::transmute(val);
-
             self._bitfield_1.as_mut().set(2usize, 6u8, val as u64)
         }
     }
@@ -1284,20 +1258,14 @@ impl POWER_S0_LOW_POWER_IDLE_INFO_2 {
         let mut bitfield_unit: BitfieldUnit<[u8; 1]> = Default::default();
 
         bitfield_unit.set(0usize, 1u8, {
-            let DisconnectInStandby: u8 = unsafe { std::mem::transmute(DisconnectInStandby) };
-
             DisconnectInStandby as u64
         });
 
         bitfield_unit.set(1usize, 1u8, {
-            let EnforceDs: u8 = unsafe { std::mem::transmute(EnforceDs) };
-
             EnforceDs as u64
         });
 
         bitfield_unit.set(2usize, 6u8, {
-            let Reserved: u8 = unsafe { std::mem::transmute(Reserved) };
-
             Reserved as u64
         });
 

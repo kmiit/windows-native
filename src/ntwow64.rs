@@ -1036,11 +1036,7 @@ impl PEB32_1_1 {
 
     #[inline]
     pub fn set_ImageUsesLargePages(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(0usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(0usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -1050,11 +1046,7 @@ impl PEB32_1_1 {
 
     #[inline]
     pub fn set_IsProtectedProcess(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(1usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(1usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -1064,11 +1056,7 @@ impl PEB32_1_1 {
 
     #[inline]
     pub fn set_IsImageDynamicallyRelocated(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(2usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(2usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -1078,11 +1066,7 @@ impl PEB32_1_1 {
 
     #[inline]
     pub fn set_SkipPatchingUser32Forwarders(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(3usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(3usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -1092,11 +1076,7 @@ impl PEB32_1_1 {
 
     #[inline]
     pub fn set_IsPackagedProcess(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(4usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(4usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -1106,11 +1086,7 @@ impl PEB32_1_1 {
 
     #[inline]
     pub fn set_IsAppContainer(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(5usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(5usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -1120,11 +1096,7 @@ impl PEB32_1_1 {
 
     #[inline]
     pub fn set_IsProtectedProcessLight(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(6usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(6usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -1134,11 +1106,7 @@ impl PEB32_1_1 {
 
     #[inline]
     pub fn set_IsLongPathAwareProcess(&mut self, val: bool) {
-        unsafe {
-            let val: u8 = std::mem::transmute(val);
-
-            self._bitfield_1.set(7usize, 1u8, val as u64)
-        }
+        self._bitfield_1.set(7usize, 1u8, val as u64)
     }
 
     #[inline]
@@ -1155,53 +1123,34 @@ impl PEB32_1_1 {
         let mut bitfield_unit: BitfieldUnit<[u8; 1]> = Default::default();
 
         bitfield_unit.set(0usize, 1u8, {
-            let ImageUsesLargePages: u8 = unsafe { std::mem::transmute(ImageUsesLargePages) };
-
             ImageUsesLargePages as u64
         });
 
         bitfield_unit.set(1usize, 1u8, {
-            let IsProtectedProcess: u8 = unsafe { std::mem::transmute(IsProtectedProcess) };
-
             IsProtectedProcess as u64
         });
 
         bitfield_unit.set(2usize, 1u8, {
-            let IsImageDynamicallyRelocated: u8 =
-                unsafe { std::mem::transmute(IsImageDynamicallyRelocated) };
-
             IsImageDynamicallyRelocated as u64
         });
 
         bitfield_unit.set(3usize, 1u8, {
-            let SkipPatchingUser32Forwarders: u8 =
-                unsafe { std::mem::transmute(SkipPatchingUser32Forwarders) };
-
             SkipPatchingUser32Forwarders as u64
         });
 
         bitfield_unit.set(4usize, 1u8, {
-            let IsPackagedProcess: u8 = unsafe { std::mem::transmute(IsPackagedProcess) };
-
             IsPackagedProcess as u64
         });
 
         bitfield_unit.set(5usize, 1u8, {
-            let IsAppContainer: u8 = unsafe { std::mem::transmute(IsAppContainer) };
-
             IsAppContainer as u64
         });
 
         bitfield_unit.set(6usize, 1u8, {
-            let IsProtectedProcessLight: u8 =
-                unsafe { std::mem::transmute(IsProtectedProcessLight) };
-
             IsProtectedProcessLight as u64
         });
 
         bitfield_unit.set(7usize, 1u8, {
-            let IsLongPathAwareProcess: u8 = unsafe { std::mem::transmute(IsLongPathAwareProcess) };
-
             IsLongPathAwareProcess as u64
         });
 
